@@ -6,12 +6,14 @@ SOURCES += \
     $$PWD/src/QGVCamera.cpp \
     $$PWD/src/QGVDrawItem.cpp \
     $$PWD/src/QGVGlobal.cpp \
+    $$PWD/src/QGVUtils.cpp \
     $$PWD/src/QGVImage.cpp \
     $$PWD/src/QGVItem.cpp \
     $$PWD/src/QGVLayer.cpp \
     $$PWD/src/QGVLayerBing.cpp \
     $$PWD/src/QGVLayerGoogle.cpp \
     $$PWD/src/QGVLayerOSM.cpp \
+    $$PWD/src/QGVLayerBDGEx.cpp \
     $$PWD/src/QGVLayerTiles.cpp \
     $$PWD/src/QGVLayerTilesOnline.cpp \
     $$PWD/src/QGVMap.cpp \
@@ -30,12 +32,14 @@ HEADERS += \
     $$PWD/include/QGeoView/QGVCamera.h \
     $$PWD/include/QGeoView/QGVDrawItem.h \
     $$PWD/include/QGeoView/QGVGlobal.h \
+    $$PWD/include/QGeoView/QGVUtils.h \
     $$PWD/include/QGeoView/QGVImage.h \
     $$PWD/include/QGeoView/QGVItem.h \
     $$PWD/include/QGeoView/QGVLayer.h \
     $$PWD/include/QGeoView/QGVLayerBing.h \
     $$PWD/include/QGeoView/QGVLayerGoogle.h \
     $$PWD/include/QGeoView/QGVLayerOSM.h \
+    $$PWD/include/QGeoView/QGVLayerBDGEx.h \
     $$PWD/include/QGeoView/QGVLayerTiles.h \
     $$PWD/include/QGeoView/QGVLayerTilesOnline.h \
     $$PWD/include/QGeoView/QGVMap.h \

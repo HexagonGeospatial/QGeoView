@@ -16,30 +16,35 @@
  * along with this program; if not, see https://www.gnu.org/licenses.
  ****************************************************************************/
 
-#pragma once
+#include "QGVUtils.h"
+#include <QtGlobal>
 
-#include "QGVGlobal.h"
+namespace QGV {
 
-#include <QGraphicsItem>
-
-class QGVDrawItem;
-
-class QGV_LIB_DECL QGVMapQGItem : public QGraphicsItem
+double metersToDistance(const double meters, const DistanceUnits unit)
 {
-public:
-    explicit QGVMapQGItem(QGVDrawItem* geoObject);
+    if (unit == DistanceUnits::Kilometers) {
+        return meters / 1000;
+    } else if (unit == DistanceUnits::NauticalMiles) {
+        return meters / 1852.0;
+    } else if (unit == DistanceUnits::Miles) {
+        return meters / 1609.0;
+    }
+    return meters;
+}
 
-    static QGVDrawItem* geoObjectFromQGItem(QGraphicsItem* item);
+QString unitToString(const DistanceUnits unit)
+{
+    if (unit == DistanceUnits::Meters) {
+        return QT_TRANSLATE_NOOP("QGV", "m");
+    } else if (unit == DistanceUnits::Kilometers) {
+        return QT_TRANSLATE_NOOP("QGV", "km");
+    } else if (unit == DistanceUnits::NauticalMiles) {
+        return QT_TRANSLATE_NOOP("QGV", "nm");
+    } else if (unit == DistanceUnits::Miles) {
+        return QT_TRANSLATE_NOOP("QGV", "mi");
+    }
+    return "";
+}
 
-    void resetGeometry();
-
-private:
-    QRectF boundingRect() const override final;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) override final;
-    QPainterPath shape() const override final;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override final;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override final;
-
-private:
-    QGVDrawItem* mGeoObject;
-};
+} // namespace QGV

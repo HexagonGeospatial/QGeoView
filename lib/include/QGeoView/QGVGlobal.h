@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -24,10 +24,12 @@
 #include <QPointF>
 #include <QRectF>
 
+#ifndef QGV_LIB_DECL
 #if defined(QGV_EXPORT)
 #define QGV_LIB_DECL Q_DECL_EXPORT
 #else
 #define QGV_LIB_DECL Q_DECL_IMPORT
+#endif
 #endif
 
 namespace QGV {
@@ -44,13 +46,32 @@ enum class TilesType
     Hybrid,
 };
 
+enum BDGExLayer
+{
+    ctm25,
+    ctm50,
+    ctm100,
+    ctm250,
+    ctmmultiescalas,
+    ctmmultiescalas_mercator
+};
+
 enum class MapState
 {
     Idle,
     Animation,
     Wheel,
-    Moving,
+    MovingMap,
+    MovingObjects,
     SelectionRect,
+};
+
+enum class DistanceUnits
+{
+    Meters,
+    Kilometers,
+    NauticalMiles,
+    Miles,
 };
 
 enum class MouseAction : int
@@ -61,6 +82,7 @@ enum class MouseAction : int
     Selection = 0x8,
     Tooltip = 0x10,
     ContextMenu = 0x20,
+    MoveObjects = 0x40,
     All = 0xFF,
 };
 Q_DECLARE_FLAGS(MouseActions, MouseAction)
@@ -75,6 +97,7 @@ enum class ItemFlag : int
     SelectCustom = 0x20,
     Transformed = 0x40,
     Clickable = 0x80,
+    Movable = 0x100,
 };
 Q_DECLARE_FLAGS(ItemFlags, ItemFlag)
 

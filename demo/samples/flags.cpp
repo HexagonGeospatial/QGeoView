@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -36,6 +36,7 @@ QString FlagsDemo::comment() const
            "- ignore the map azimuth<br>"
            "- ignore the map scale<br>"
            "- item highlight<br>"
+           "- item move<br>"
            "- mouse tracking<br>"
            "- custom transformation, highlight and selection<br><br>"
            "The behavior of the flag should be visible by appropriate action (for example: selection, zooming or "
@@ -60,6 +61,8 @@ void FlagsDemo::onInit()
         { "Custom selectable(cyan)", new Rectangle(randRect(target, size), QGV::ItemFlag::SelectCustom, Qt::cyan) },
         { "Clickable by mouse(magenta)", new Rectangle(randRect(target, size), QGV::ItemFlag::Clickable, Qt::magenta) },
         { "Custom transform(yellow)", new Rectangle(randRect(target, size), QGV::ItemFlag::Transformed, Qt::yellow) },
+        { "Movable(darkCyan)",
+          new Rectangle(randRect(target, size), QGV::ItemFlag::Movable | QGV::ItemFlag::Transformed, Qt::darkCyan) },
     };
     /*
      * Layers will be owned by map.

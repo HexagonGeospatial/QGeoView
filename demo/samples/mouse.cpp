@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -36,6 +36,7 @@ QString MouseDemo::comment() const
            "- item selection by left button or rubber band (right button + ctrl/shift)<br>"
            "- unselect all items by double<br>"
            "- map move by left button<br>"
+           "- object move by left button + alt<br>"
            "- context menu by right button<br>"
            "- item tooltip<br>";
 }
@@ -60,6 +61,8 @@ void MouseDemo::onInit()
         { "Zoom(rect)", std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::ZoomRect, std::placeholders::_1) },
         { "Selection", std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::Selection, std::placeholders::_1) },
         { "Move", std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::Move, std::placeholders::_1) },
+        { "MoveObjects",
+          std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::MoveObjects, std::placeholders::_1) },
         { "Context menu",
           std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::ContextMenu, std::placeholders::_1) },
         { "Tooltip", std::bind(&MouseDemo::enableAction, this, QGV::MouseAction::Tooltip, std::placeholders::_1) },

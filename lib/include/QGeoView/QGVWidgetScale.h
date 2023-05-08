@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -33,9 +33,15 @@ public:
     void setOrientation(Qt::Orientation orientation);
     Qt::Orientation getOrientation() const;
 
-    QString getDistanceLabel(int meters, int accuracy = 0) const;
+    void setDistanceUnits(QGV::DistanceUnits distanceUnits);
+    QGV::DistanceUnits getDistanceUnits() const;
 
-private:
+    void setUseMetersForSmallDistance(bool useMetersForSmallDistance);
+    bool getUseMetersForSmallDistance() const;
+
+protected:
+    QString getDistanceLabel(int meters) const;
+
     void onCamera(const QGVCameraState& oldState, const QGVCameraState& newState) override;
     void paintEvent(QPaintEvent* event) override;
 
@@ -44,4 +50,6 @@ private:
     bool mAutoAdjust;
     int mScaleMeters;
     int mScalePixels;
+    QGV::DistanceUnits mDistanceUnits;
+    bool mUseMetersForSmallDistance;
 };

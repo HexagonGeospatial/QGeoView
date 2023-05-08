@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -52,6 +52,7 @@ QGVMap::QGVMap(QWidget* parent)
     mRootItem.reset(new RootItem(this));
     setLayout(new QVBoxLayout(this));
     layout()->addWidget(mQGView.data());
+    layout()->setContentsMargins(0, 0, 0, 0);
     refreshProjection();
 }
 
@@ -252,6 +253,17 @@ QList<QGVDrawItem*> QGVMap::search(const QRectF& projRect, Qt::ItemSelectionMode
     return result;
 }
 
+QList<QGVDrawItem*> QGVMap::search(const QPolygonF& projPolygon, Qt::ItemSelectionMode mode) const
+{
+    QList<QGVDrawItem*> result;
+    for (QGraphicsItem* item : geoView()->scene()->items(projPolygon, mode)) {
+        QGVDrawItem* geoObject = QGVMapQGItem::geoObjectFromQGItem(item);
+        if (geoObject)
+            result << geoObject;
+    }
+    return result;
+}
+
 QPixmap QGVMap::grabMapView(bool includeWidgets) const
 {
     const QPixmap pixmap = (includeWidgets) ? geoView()->grab(geoView()->rect())
@@ -357,4 +369,13 @@ void QGVMap::mouseMoveEvent(QMouseEvent* event)
     }
     event->ignore();
     QWidget::mouseMoveEvent(event);
+}
+
+void QGVMap::mousePressEvent(QMouseEvent* event)
+{
+    if (hasMouseTracking()) {
+        Q_EMIT mapMousePress(mapToProj(event->pos()));
+    }
+    event->ignore();
+    QWidget::mousePressEvent(event);
 }

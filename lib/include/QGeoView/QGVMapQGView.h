@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -20,6 +20,7 @@
 
 #include "QGVCamera.h"
 #include "QGVGlobal.h"
+#include "QGVMapQGItem.h"
 #include "QGVMapRubberBand.h"
 
 #include <QGraphicsView>
@@ -58,8 +59,10 @@ private:
     void showTooltip(QHelpEvent* helpEvent);
     void zoomByWheel(QWheelEvent* event);
     void startMoving(QMouseEvent* event);
+    void startMovingObject(QMouseEvent* event);
     void startSelectionRect(QMouseEvent* event);
     void stopSelectionRect(QMouseEvent* event);
+    void stopMovingObject(QMouseEvent* event);
     void zoomArea(QMouseEvent* event, QRect areaRect);
     void selectObjectsByRect(QMouseEvent* event, QRect selRect);
     void objectClick(QMouseEvent* event);
@@ -67,6 +70,7 @@ private:
     void moveForWheel(QMouseEvent* event);
     void moveForRect(QMouseEvent* event);
     void moveMap(QMouseEvent* event);
+    void moveObject(QMouseEvent* event);
     void unselectAll(QMouseEvent* event);
     void showMenu(QMouseEvent* event);
 
@@ -94,6 +98,7 @@ private:
     QPointF mWheelProjAnchor;
     double mWheelBestFactor;
     QPointF mMoveProjAnchor;
+    QGVDrawItem* mMovingObject;
     QScopedPointer<QGraphicsScene> mQGScene;
     QScopedPointer<QGVMapRubberBand> mSelectionRect;
     QScopedPointer<QMenu> mContextMenu;

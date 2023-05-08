@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -50,6 +50,9 @@ public:
     virtual void projOnFlags();
     virtual void projOnMouseClick(const QPointF& projPos);
     virtual void projOnMouseDoubleClick(const QPointF& projPos);
+    virtual void projOnObjectStartMove(const QPointF& projPos);
+    virtual void projOnObjectMovePos(const QPointF& projPos);
+    virtual void projOnObjectStopMove(const QPointF& projPos);
 
 protected:
     void onProjection(QGVMap* geoMap) override;
@@ -60,4 +63,5 @@ protected:
 private:
     QGV::ItemFlags mFlags;
     QScopedPointer<QGVMapQGItem> mQGDrawItem;
+    bool mDirty;
 };

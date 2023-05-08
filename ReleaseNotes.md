@@ -1,5 +1,13 @@
 # Release Notes
 
+- Parametrized QT version
+- New distance units (scale widget)
+
+## v1.0.4
+
+- Qt6 support
+- Added support for object moving
+
 ## v1.0.3
 
 - Fixed bug for Windows build

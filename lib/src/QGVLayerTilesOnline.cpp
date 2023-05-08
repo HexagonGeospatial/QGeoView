@@ -1,6 +1,6 @@
 /***************************************************************************
  * QGeoView is a Qt / C ++ widget for visualizing geographic data.
- * Copyright (C) 2018-2020 Andrey Yaroshenko.
+ * Copyright (C) 2018-2023 Andrey Yaroshenko.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -41,6 +41,9 @@ void QGVLayerTilesOnline::request(const QGV::GeoTilePos& tilePos)
 {
     const QUrl url(tilePosToUrl(tilePos));
     QNetworkRequest request(url);
+    QSslConfiguration conf = request.sslConfiguration();
+    conf.setPeerVerifyMode(QSslSocket::VerifyNone);
+    request.setSslConfiguration(conf);
     request.setRawHeader("User-Agent",
                          "Mozilla/5.0 (Windows; U; MSIE "
                          "6.0; Windows NT 5.1; SV1; .NET "

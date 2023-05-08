@@ -18,28 +18,24 @@
 
 #pragma once
 
-#include "QGVGlobal.h"
+#include "QGVLayerTilesOnline.h"
 
-#include <QGraphicsItem>
-
-class QGVDrawItem;
-
-class QGV_LIB_DECL QGVMapQGItem : public QGraphicsItem
+class QGV_LIB_DECL QGVLayerBDGEx : public QGVLayerTilesOnline
 {
+    Q_OBJECT
+
 public:
-    explicit QGVMapQGItem(QGVDrawItem* geoObject);
+    explicit QGVLayerBDGEx(int serverNumber = 4);
+    explicit QGVLayerBDGEx(const QString& url);
 
-    static QGVDrawItem* geoObjectFromQGItem(QGraphicsItem* item);
-
-    void resetGeometry();
-
-private:
-    QRectF boundingRect() const override final;
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget = 0) override final;
-    QPainterPath shape() const override final;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent* event) override final;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent* event) override final;
+    void setUrl(const QString& url);
+    QString getUrl() const;
 
 private:
-    QGVDrawItem* mGeoObject;
+    int minZoomlevel() const override;
+    int maxZoomlevel() const override;
+    QString tilePosToUrl(const QGV::GeoTilePos& tilePos) const override;
+
+private:
+    QString mUrl;
 };
